@@ -1,4 +1,4 @@
-# FocusUI
+# TroutUI
 
 Shared UI layer for Task Routine Tracker implementations on watchOS, iOS, and possibly other frameworks.
 
