@@ -8,10 +8,8 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 //
 
-import SwiftUI
-import WidgetKit
-
 import Compactor
+import SwiftUI
 
 import GroutLib
 
@@ -80,6 +78,6 @@ struct WidgetView_Previews: PreviewProvider {
         let entry = WidgetEntry(timeInterval: 2000)
         return WidgetView(entry: entry)
             .accentColor(.blue)
-            .previewContext(WidgetPreviewContext(family: .accessoryCircular))
+        // .previewContext(WidgetPreviewContext(family: .accessoryCircular))
     }
 }
