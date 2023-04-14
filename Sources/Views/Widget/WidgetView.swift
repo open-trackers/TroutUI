@@ -11,7 +11,7 @@
 import Compactor
 import SwiftUI
 
-import GroutLib
+import TroutLib
 
 public struct WidgetView: View {
     // MARK: - Parameters
