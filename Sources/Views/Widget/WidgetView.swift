@@ -75,7 +75,7 @@ public struct WidgetView: View {
 
 struct WidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        let entry = WidgetEntry(timeInterval: 2000)
+        let entry = WidgetEntry(name: "Blah", timeInterval: 2000)
         return WidgetView(entry: entry)
             .accentColor(.blue)
         // .previewContext(WidgetPreviewContext(family: .accessoryCircular))
