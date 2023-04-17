@@ -48,7 +48,7 @@ public struct RoutineCell: View {
         Cell(element: routine,
              statusImageName: statusImageName,
              now: $now,
-             defaultImageName: "wrench.and.screwdriver.fill",
+             defaultImageName: defaultImageName,
              subtitle: subtitle,
              onDetail: { onDetail(uri) },
              onShortPress: { onShortPress(uri) })
