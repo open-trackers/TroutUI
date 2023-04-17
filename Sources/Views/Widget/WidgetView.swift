@@ -11,9 +11,12 @@
 import Compactor
 import SwiftUI
 
+import TrackerUI
 import TroutLib
 
 public struct WidgetView: View {
+    @Environment(\.colorScheme) private var colorScheme
+
     // MARK: - Parameters
 
     private let entry: Provider.Entry
@@ -30,35 +33,52 @@ public struct WidgetView: View {
         private static let style: TimeCompactor.Style = .medium
     #endif
 
-    private static let tc = TimeCompactor(ifZero: "", style: Self.style)
+    private static let tc = TimeCompactor(ifZero: nil, style: Self.style)
 
     // MARK: - Views
 
     public var body: some View {
-        #if os(watchOS)
-            gauge
-        #elseif os(iOS)
-            VStack {
-                Section {
-                    gauge
-                } header: {
-                    Text("Last routine")
-                        .lineLimit(1)
-                        .foregroundColor(.secondary)
-                }
-            }
-            .padding(10)
-        #endif
+        platformView
     }
 
-    private var gauge: some View {
-        ZStack {
-            Text(sinceStr)
-                .foregroundColor(.primary)
-            Circle()
-                .strokeBorder(Gradient(colors: colors), lineWidth: 5)
+    private var cellForeground: Color {
+        .primary.opacity(colorScheme == .light ? 0.8 : 1.0)
+    }
+
+    #if os(watchOS)
+        private var platformView: some View {
+            VStack {
+                Image(systemName: entry.imageName ?? defaultImageName)
+                Text(sinceStr)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(CellBackground(color: entry.color))
         }
-        .tint(Gradient(colors: colors))
+    #endif
+
+    #if os(iOS)
+        private var platformView: some View {
+            VStack(alignment: .leading) {
+                Image(systemName: entry.imageName ?? defaultImageName)
+                    .imageScale(.large)
+                Spacer()
+                TitleText(entry.name, lineLimit: 2)
+                Spacer()
+                Text("\(sinceStr) ago")
+                    .font(.body)
+                    .italic()
+                    .opacity(0.8)
+                    .lineLimit(1)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            .padding()
+            .foregroundColor(cellForeground)
+            .background(CellBackground(color: entry.color))
+        }
+    #endif
+
+    private var cellBackground: some View {
+        CellBackground(color: entry.color)
     }
 
     // MARK: - Properties
@@ -66,16 +86,11 @@ public struct WidgetView: View {
     private var sinceStr: String {
         Self.tc.string(from: entry.timeInterval as NSNumber) ?? ""
     }
-
-    private var colors: [Color] {
-        let c = entry.pairs.map(\.color)
-        return c.first == nil ? [.accentColor] : c
-    }
 }
 
 struct WidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        let entry = WidgetEntry(name: "Blah", timeInterval: 2000)
+        let entry = WidgetEntry(name: "Travel", imageName: nil, timeInterval: 2000, color: .orange)
         return WidgetView(entry: entry)
             .accentColor(.blue)
         // .previewContext(WidgetPreviewContext(family: .accessoryCircular))

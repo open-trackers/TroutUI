@@ -10,6 +10,8 @@
 
 import SwiftUI
 
+public let defaultImageName = "wrench.and.screwdriver.fill"
+
 public let routineColor: Color = .accentColor
 public let routineColorDarkBg: Color = routineColor.opacity(0.8)
 public let routineColorLiteBg: Color = .primary
