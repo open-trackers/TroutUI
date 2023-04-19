@@ -123,7 +123,7 @@ public struct RoutineRun: View {
 
         // advertise running "Start ‘Back & Bicep’ Routine"
         .userActivity(startMRoutineActivityType,
-                      isActive: hasCompletedAtLeastOneMTask,
+                      isActive: hasCompletedAtLeastOneTask,
                       userActivityUpdate)
     }
 
@@ -161,7 +161,7 @@ public struct RoutineRun: View {
         tasks.count - remainingCount
     }
 
-    private var hasCompletedAtLeastOneMTask: Bool {
+    private var hasCompletedAtLeastOneTask: Bool {
         completedCount > 0
     }
 
@@ -228,7 +228,7 @@ public struct RoutineRun: View {
     }
 }
 
-struct MRoutineRun_Previews: PreviewProvider {
+struct RoutineRun_Previews: PreviewProvider {
     struct TestHolder: View {
         var routine: MRoutine
         @State var startedAt: Date = .now.addingTimeInterval(-1000)

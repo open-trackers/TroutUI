@@ -147,8 +147,14 @@ public struct RoutineControl: View {
                          labelFont: labelFont,
                          tint: stopColor,
                          onLongPress: nil)
-            ElapsedSinceView(startedOrResumedAt: startedOrResumedAt,
-                             labelFont: labelFont)
+
+            // NOTE: presently shows only the time since the most recent start/resume.
+            //
+            // Does NOT yet show the total elapsed time based on MRoutine.lastDuration
+            // (where there may have been one or more pauses.)
+            ElapsedView(startedAt: startedOrResumedAt,
+                        labelFont: labelFont,
+                        tint: routineColor)
         }
     }
 

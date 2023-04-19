@@ -161,6 +161,8 @@ public struct MRoutineList: View {
             // NOTE: storing startedAt locally (not in routine.lastStartedAt)
             // to ignore mistaken starts.
             startedOrResumedAt = try routineToRun.startOrResumeRun(viewContext)
+
+            // save new clone, task completion clears, etc.
             try viewContext.save()
 
             Haptics.play(.startingAction)
