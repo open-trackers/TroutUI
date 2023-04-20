@@ -16,8 +16,8 @@ struct FieldDetControlType: View {
 
     var body: some View {
         Picker("Control Type", selection: $value) {
-            Text("Number Pad").tag(0)
-            Text("Stepper").tag(1)
+            Text("Number Pad").tag(Int16(0))
+            Text("Stepper").tag(Int16(1))
         }
         // .pickerStyle(.inline)
     }
