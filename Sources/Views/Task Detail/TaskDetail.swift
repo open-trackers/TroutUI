@@ -40,15 +40,8 @@ public struct MTaskDetail: View {
 
         enum Tab: Int, CaseIterable {
             case name = 1
-            case fields = 2
-//            case primary = 2
-//            case secondary = 3
-//            case sets = 4
-//            case reps = 5
-//            case intensity = 6
-//            case intensityStep = 7
-//            case intensityUnit = 8
-//            case intensityInvert = 9
+            case routine = 2
+            case fields = 3
         }
     #endif
 
@@ -62,7 +55,6 @@ public struct MTaskDetail: View {
     }
 
     #if os(watchOS)
-
         private var platformView: some View {
             ControlBarTabView(selection: $selectedTab, tint: taskColor, title: title) {
                 Form {
@@ -70,6 +62,15 @@ public struct MTaskDetail: View {
                                 tint: taskColor)
                 }
                 .tag(Tab.name)
+
+                Form {
+                    if let routine = task.routine {
+                        TaskDetRoutine(routine: routine, onSelect: selectRoutineAction)
+                    } else {
+                        Text("Routine not available")
+                    }
+                }
+                .tag(Tab.routine)
 
                 FakeSection(title: "Fields") {
                     FieldList(task: task)
@@ -85,6 +86,10 @@ public struct MTaskDetail: View {
             Form {
                 TaskDetName(task: task,
                             tint: taskColor)
+
+                if let routine = task.routine {
+                    TaskDetRoutine(routine: routine, onSelect: selectRoutineAction)
+                }
 
                 TaskDetFields(task: task)
             }
@@ -103,6 +108,18 @@ public struct MTaskDetail: View {
     }
 
     // MARK: - Actions
+
+    // if user selects a new routine, the task should no longer be in routine's list of tasks
+    private func selectRoutineAction(nuRoutineArchiveID: UUID?) {
+        guard let nuRoutineArchiveID,
+              nuRoutineArchiveID != task.routine?.archiveID else { return }
+        do {
+            guard let nu = try MRoutine.get(viewContext, archiveID: nuRoutineArchiveID) else { return }
+            task.routine = nu
+        } catch {
+            logger.error("\(#function): \(error.localizedDescription)")
+        }
+    }
 
     private func onDisappearAction() {
         do {
