@@ -114,8 +114,10 @@ public struct MTaskDetail: View {
         guard let nuRoutineArchiveID,
               nuRoutineArchiveID != task.routine?.archiveID else { return }
         do {
-            guard let nu = try MRoutine.get(viewContext, archiveID: nuRoutineArchiveID) else { return }
-            task.routine = nu
+            guard let nu = try MRoutine.get(viewContext, archiveID: nuRoutineArchiveID)
+            else { return }
+            try task.move(viewContext, to: nu)
+            try viewContext.save()
         } catch {
             logger.error("\(#function): \(error.localizedDescription)")
         }
