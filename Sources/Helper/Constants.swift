@@ -79,7 +79,7 @@ public let websiteURL = URL(string: "https://\(websiteDomain)")!
 public let websitePrivacyURL = websiteURL.appending(path: "privacy")
 public let websiteTermsURL = websiteURL.appending(path: "terms")
 
-public let websiteAppURL = websiteURL.appending(path: "grt")
+public let websiteAppURL = websiteURL.appending(path: "trt")
 public let websiteAppTutorialURL = websiteAppURL.appending(path: "tutorial")
 
 public let websitePlea: String =
