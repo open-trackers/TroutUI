@@ -50,6 +50,9 @@ struct FieldDetName: View {
                                     onSelect: selectAction)
                 }
             }
+            #if os(watchOS)
+            .padding(.bottom)
+            #endif
             .tint(tint)
 
             // KLUDGE: unable to get textfield to display multiple lines, so conditionally

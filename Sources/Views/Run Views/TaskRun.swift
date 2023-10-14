@@ -102,18 +102,24 @@ public struct TaskRun: View {
         platformContent
     }
 
+    #if os(iOS)
+        private let slices: CGFloat = 6
+    #elseif os(watchOS)
+        private let slices: CGFloat = 14
+    #endif
+
     #if os(watchOS)
         private var platformContent: some View {
             GeometryReader { geo in
                 VStack {
                     titleText
-                        .frame(height: geo.size.height * 3 / 13)
+                        .frame(height: geo.size.height * 3 / slices)
 
                     middleRow
-                        .frame(height: geo.size.height * 5 / 13)
+                        .frame(height: geo.size.height * 5 / slices)
 
                     navigationRow
-                        .frame(height: geo.size.height * 5 / 13)
+                        .frame(height: geo.size.height * 6 / slices)
                 }
             }
         }
@@ -124,7 +130,7 @@ public struct TaskRun: View {
             GeometryReader { geo in
                 VStack {
                     titleText
-                        .frame(maxHeight: geo.size.height / 6)
+                        .frame(maxHeight: geo.size.height / slices)
 
                     let count = fields.count
                     GroupBox {

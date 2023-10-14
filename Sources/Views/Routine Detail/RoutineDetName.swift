@@ -36,10 +36,13 @@ public struct RoutineDetName: View {
                             presets: routinePresets,
                             pickerLabel: { Text($0.description).foregroundStyle(.tint) },
                             onSelect: selectAction)
-            #if os(iOS)
-                .font(.title3)
+            #if os(watchOS)
+                .padding(.bottom)
             #endif
-                .textInputAutocapitalization(.words)
+            #if os(iOS)
+            .font(.title3)
+            #endif
+            .textInputAutocapitalization(.words)
 
             // KLUDGE: unable to get textfield to display multiple lines, so conditionally
             //         including full text as a courtesy.

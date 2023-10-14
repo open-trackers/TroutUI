@@ -53,7 +53,7 @@ public struct RoutineControl: View {
     // MARK: - Locals
 
     #if os(watchOS)
-        let verticalSpacing: CGFloat = 10
+        let verticalSpacing: CGFloat = 12
         let minTitleHeight: CGFloat = 20
         let horzButtonSpacing: CGFloat = 15
         let maxFontSize: CGFloat = 35
@@ -100,19 +100,20 @@ public struct RoutineControl: View {
     }
 
     #if os(watchOS)
+        private let slices: CGFloat = 9
         private var platformView: some View {
             GeometryReader { geo in
                 VStack(spacing: verticalSpacing) {
                     TitleText(routine.wrappedName, maxFontSize: maxFontSize)
                         .foregroundColor(titleColor)
                         .frame(minHeight: minTitleHeight)
-                        .frame(height: geo.size.height * 1 / 5)
+                        .frame(height: geo.size.height * 1 / slices)
 
                     middle
-                        .frame(height: geo.size.height * 2 / 5)
+                        .frame(height: geo.size.height * 4 / slices)
 
                     bottom
-                        .frame(height: geo.size.height * 2 / 5)
+                        .frame(height: geo.size.height * 4 / slices)
                 }
                 .frame(maxHeight: .infinity, alignment: .top)
             }
