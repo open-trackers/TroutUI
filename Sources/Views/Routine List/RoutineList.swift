@@ -16,7 +16,7 @@ import TrackerLib
 import TrackerUI
 import TroutLib
 
-extension MRoutine: Named {}
+extension MRoutine: @retroactive Named {}
 
 /// Common view shared by watchOS and iOS.
 public struct MRoutineList: View {
